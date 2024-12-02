@@ -4,10 +4,10 @@ import requests
 service1_url = "http://localhost:8080/service1/message"
 service2_url = "http://localhost:8080/service2/message"
 
-# Начало диалога
+# Начинаем диалог
 print("Диалог начался...\n")
 
-# Сервис 1 отправляет первое сообщение
+# Сервис 1 начинает беседу
 response1 = requests.post(service1_url, json={"message": ""})
 print(f"Сервис 1: {response1.json()['message']}")
 
@@ -23,6 +23,10 @@ print(f"Сервис 1: {response3.json()['message']}")
 response4 = requests.post(service2_url, json={"message": response3.json()['message']})
 print(f"Сервис 2: {response4.json()['message']}")
 
-# Сервис 1 отвечает на четвёртое сообщение (завершение диалога)
+# Сервис 1 отвечает на четвёртое сообщение 
 response5 = requests.post(service1_url, json={"message": response4.json()['message']})
 print(f"Сервис 1: {response5.json()['message']}")
+
+# Сервис 2 отвечает на пятое сообщение (ура, конец диалога)
+response6 = requests.post(service2_url, json={"message": response5.json()['message']})
+print(f"Сервис 2: {response6.json()['message']}")
